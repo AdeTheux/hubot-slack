@@ -1,0 +1,148 @@
+# Description
+#   Posts a daily digest message in the room every morning
+#
+# Configuration:
+#   HUBOT_ZENDESK_USER
+#   HUBOT_ZENDESK_PASSWORD
+#   HUBOT_ZENDESK_SUBDOMAIN
+#	HUBOT_UBER_TOKEN
+#   HUBOT_OWM_APIKEY
+#
+# Commands:
+#
+# Author:
+#   Arnaud de Theux <a.detheux@mac.com>
+#
+#
+#_  = require("underscore")
+#
+#intro = (robot) ->
+#	robot.messageRoom ROOM, ">:coffee: Good morning !"
+#
+#stocks = (robot) ->
+#	robot.http('http://finance.google.com/finance/info?client=ig&q=ZEN')
+#    .get() (err, res, body) ->
+#      try
+#        result = JSON.parse(body.replace(/\/\/ /, ''))
+#        robot.messageRoom ROOM, ">:chart_with_upwards_trend: ZEN is currently trading at $"+result[0].l_cur + ' ' + 'http://finance.yahoo.com/q?s=ZEN'
+#
+#tube_central = (robot) ->
+#    robot.http("http://service-disruption.herokuapp.com/network/central")
+#      .get() (err, res, body) ->
+#       line = JSON.parse(body)
+#       robot.messageRoom ROOM, ">:metro: Central line status: #{line.line.status.status_description}"
+#
+#tube_circle = (robot) ->
+#    robot.http("http://service-disruption.herokuapp.com/network/circle")
+#      .get() (err, res, body) ->
+#       line = JSON.parse(body)
+#       robot.messageRoom ROOM, ">:metro: Circle line status: #{line.line.status.status_description}"
+#
+#tube_northern = (robot) ->
+#    robot.http("http://service-disruption.herokuapp.com/network/northern")
+#      .get() (err, res, body) ->
+#       line = JSON.parse(body)
+#       robot.messageRoom ROOM, ">:metro: Northern line status: #{line.line.status.status_description}"
+#
+#tube_bakerloo = (robot) ->
+#    robot.http("http://service-disruption.herokuapp.com/network/bakerloo")
+#      .get() (err, res, body) ->
+#       line = JSON.parse(body)
+#       robot.messageRoom ROOM, ">:metro: Bakerloo line status: #{line.line.status.status_description}"
+#
+#tube_victoria = (robot) ->
+#    robot.http("http://service-disruption.herokuapp.com/network/victoria")
+#      .get() (err, res, body) ->
+#       line = JSON.parse(body)
+#       robot.messageRoom ROOM, ">:metro: Victoria line status: #{line.line.status.status_description}"
+#
+#tube_jubilee = (robot) ->
+#    robot.http("http://service-disruption.herokuapp.com/network/jubilee")
+#      .get() (err, res, body) ->
+#       line = JSON.parse(body)
+#       robot.messageRoom ROOM, ">:metro: Jubilee line status: #{line.line.status.status_description}"
+#
+#weather_ldn = (robot) ->
+#    robot.http("http://api.openweathermap.org/data/2.5/weather?q=london&units=metric&APPID=#{process.env.HUBOT_OWM_APIKEY}")
+#      .header('Accept', 'application/json')
+#      .get() (err, res, body) ->
+#        data = JSON.parse(body)
+#        if data.message
+#          robot.messageRoom ROOM, "#{data.message}"
+#        else
+#          robot.messageRoom ROOM, ">:earth_africa: Forecast for today in London: #{data.weather[0].main}, #{data.weather[0].description}. Temperature #{data.main.temp_min}°C min / #{data.main.temp_max}°C max. "
+#
+#weather_ber = (robot) ->
+#    robot.http("http://api.openweathermap.org/data/2.5/weather?q=berlin&units=metric&APPID=#{process.env.HUBOT_OWM_APIKEY}")
+#      .header('Accept', 'application/json')
+#      .get() (err, res, body) ->
+#        data = JSON.parse(body)
+#        if data.message
+#          robot.messageRoom ROOM, "#{data.message}"
+#        else
+#          robot.messageRoom ROOM, ">:earth_africa: Forecast for today in Berlin: #{data.weather[0].main}, #{data.weather[0].description}. Temperature #{data.main.temp_min}°C min / #{data.main.temp_max}°C max. "
+#
+#weather_cpn = (robot) ->
+#    robot.http("http://api.openweathermap.org/data/2.5/weather?q=copenhagen&units=metric&APPID=#{process.env.HUBOT_OWM_APIKEY}")
+#      .header('Accept', 'application/json')
+#      .get() (err, res, body) ->
+#        data = JSON.parse(body)
+#        if data.message
+#          robot.messageRoom ROOM, "#{data.message}"
+#        else
+#          robot.messageRoom ROOM, ">:earth_africa: Forecast for today in Copenhagen: #{data.weather[0].main}, #{data.weather[0].description}. Temperature #{data.main.temp_min}°C min / #{data.main.temp_max}°C max. "
+#
+#weather_dub = (robot) ->
+#    robot.http("http://api.openweathermap.org/data/2.5/weather?q=dublin&units=metric&APPID=#{process.env.HUBOT_OWM_APIKEY}")
+#      .header('Accept', 'application/json')
+#      .get() (err, res, body) ->
+#        data = JSON.parse(body)
+#        if data.message
+#          robot.messageRoom ROOM, "#{data.message}"
+#        else
+#          robot.messageRoom ROOM, ">:earth_africa: Forecast for today in Dublin: #{data.weather[0].main}, #{data.weather[0].description}. Temperature #{data.main.temp_min}°C min / #{data.main.temp_max}°C max. "
+#
+#meeting = (robot) ->
+#  robot.messageRoom ROOM, ">:briefcase:
+#	>Type *nestor create meeting* to start a GoToMeeting."
+#
+#
+##NEWS
+##module.exports = (robot) ->
+##  require('hubot-arm') robot
+##
+##
+##news = (robot) ->
+##	query = (msg, cb) ->
+##    url = 'https://news.google.com/'
+##    msg
+##      .robot
+##      .arm('request')
+##        method: 'GET'
+##        url: url
+##        format: 'html'
+##      .then (r) ->
+##        articles = []
+##        r.$('.esc-lead-article-title a.article').each ->
+##          e = r.$ @
+##          href = e.attr('href')
+##          title = e.text()
+##          article = "#{title} #{href}"
+##          articles.push article
+##        res.send articles.filter((item, i) -> i < 3).join('\n')
+#
+##Success flow cron job
+#TIMEZONE = "Europe/London"
+#MORNING_MSG = '00 00 07 * * 1-5' # M-F 7AM GMT
+#ROOM = "emeasuccess-team"
+#
+#cronJob = require('cron').CronJob
+#
+##lasagna of returns
+#module.exports = (robot) ->
+#        morning_digest = new cronJob MORNING_MSG,
+#                ->
+#                    intro(robot)  + stocks(robot) + tube_central(robot) + tube_circle(robot) + tube_northern(robot) + tube_victoria(robot) + tube_bakerloo(robot) + tube_jubilee(robot) + weather_ldn(robot) + weather_dub(robot) + weather_ber(robot) + weather_cpn(robot) + meeting(robot)
+#                null
+#                true
+#                TIMEZONE

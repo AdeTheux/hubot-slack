@@ -1,0 +1,31 @@
+# Description
+#   Posts a weekly message when it's time for cocktails
+#
+# Configuration:
+#   Nada
+#
+# Commands:
+#
+# Author:
+#   Arnaud de Theux <a.detheux@mac.com>
+#
+#
+#cocktails = (robot) ->
+#	robot.messageRoom ROOM, ":cocktail: Cocktails, cocktails, cocktails, come and get your cocktails :beers:"
+#
+#
+##Sales flow cron job
+#TIMEZONE = "Europe/London"
+#COCKTAIL_MSG = '00 00 17 * * 5' # F 5PM GMT
+#ROOM = "C14RDBF53"
+#
+#cronJob = require('cron').CronJob
+#
+##Post message
+#module.exports = (robot) ->
+#        cocktail_digest = new cronJob COCKTAIL_MSG,
+#                ->
+#                    cocktails(robot)
+#                null
+#                true
+#                TIMEZONE
